@@ -7,3 +7,4 @@ dist
 README.md
 .DS_Store
 npm-debug.log
+jenkins_home
