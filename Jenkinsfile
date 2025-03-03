@@ -2,9 +2,9 @@ pipeline {
     agent any
 
     environment {
-        IMAGE_NAME = "docker.io/prabha20/shopverse-app"
+        IMAGE_NAME = "docker.io/prabha20/my-node-app"
         IMAGE_TAG = "latest"
-        REGISTRY = "docker.io" // Use Docker Hub, AWS ECR, or any registry
+        REGISTRY = "docker.io"
         DOCKER_USER = "prabha20"
         DOCKER_PASS = "Ranjith@1311"
     }
@@ -43,7 +43,7 @@ pipeline {
         stage('Deploy with Docker') {
             steps {
                 script {
-                    sh 'docker run -d -p 81:80 ${IMAGE_NAME}:${IMAGE_TAG}'
+                    sh 'docker run -d -p 8081:81 ${IMAGE_NAME}:${IMAGE_TAG}'
                 }
             }
         }
