@@ -7,8 +7,8 @@ WORKDIR /app
 # Copy package.json and package-lock.json first for better caching
 COPY package*.json ./
 
-# Install dependencies
-RUN npm install
+# Install dependencies and debug issues
+RUN npm install && npm list --depth=0
 
 # Copy the entire project
 COPY . .
@@ -16,8 +16,8 @@ COPY . .
 # Debug: Print the directory structure
 RUN ls -la
 
-# Build the app
-RUN npm run build
+# Build the app (Check if this fails in local first)
+RUN npm run build || (echo "Build failed"; exit 1)
 
 # Ensure the built index.html exists inside the dist directory
 RUN test -f dist/index.html || (echo "Missing index.html in dist"; exit 1)
