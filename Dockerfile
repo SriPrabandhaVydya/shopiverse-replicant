@@ -16,11 +16,11 @@ COPY . .
 # Debug: Print the directory structure
 RUN ls -la
 
-# Ensure the entry file exists
-RUN test -f index.html || (echo "Missing index.html"; exit 1)
-
 # Build the app
 RUN npm run build
+
+# Ensure the built index.html exists inside the dist directory
+RUN test -f dist/index.html || (echo "Missing index.html in dist"; exit 1)
 
 # Use Nginx for serving the built application
 FROM nginx:alpine
@@ -36,4 +36,3 @@ EXPOSE 81
 
 # Start Nginx
 CMD ["nginx", "-g", "daemon off;"]
-
